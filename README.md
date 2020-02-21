@@ -25,7 +25,7 @@ Nextflow: https://www.nextflow.io
 
 McLean Lab: Univeristy of Washington School of Dentistry, Department of Periodontics
 
-#Authors
+# Authors
 Sam Minot
 Kristopher Kerns 
 
