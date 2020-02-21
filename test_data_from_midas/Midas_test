@@ -1,0 +1,15 @@
+Files used to run test of Midas used in the Midas Workflow Tutorial
+Representative genome used: Bacteroides_vulgatus_ATCC_8482
+files in "genomes" include: .faa, .ffn, .fna, .genes
+
+Reference database size (genomes.tar) - 5.1 Mb
+Reference database size (genomes) - 12.9 Mb
+
+Test data (test.fq.gz) - 217 KB
+Test data (test.fq) - 827 KB
+
+workflow script: test_midas.py
+
+genome.mapfile: 
+genome_id	             species_id	          rep_genome
+Bacteroides_vulgatus_ATCC_8482	Bacteroides_vulgatus	1
