@@ -16,6 +16,8 @@ process kneaddata {
     val input_type from params.input_type
     output:
     file "${input_fastq}.kneaddata.trimmed.fastq"
+    reference-db:
+    file "s3://mcleanlabmidas/Kneaddata_database/ribosomal_RNA_db/"
     """
     kneaddata --input $INPUT --reference-db $DATABASE --output $OUTPUT_DIR
     """
