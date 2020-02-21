@@ -17,7 +17,7 @@ process kneaddata {
     output:
     file "${input_fastq}.kneaddata.trimmed.fastq"
     """
-    knead_data.py --input_type ${input_type} --tmp_dir ./ -o ${input_fastq}.midas.tsv ${input_fastq}
+    kneaddata --input $INPUT --reference-db $DATABASE --output $OUTPUT_DIR
     """
 }
 
