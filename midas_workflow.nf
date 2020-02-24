@@ -42,19 +42,5 @@ process midas {
     """
 }
 
-process prokka {
-    container "https://github.com/tseemann/prokka.git"
-    cpus 16
-    memory "256 GB"
-    publishDir "${params.output_folder}"
-    input:
-    file input_fastq from (***Should be from midas.genes or midas.merged output?***)
-    val input_type from params.input_type_midas
-    output:
-    file "${input_fastq}.midas.genes.prokka"
-    """
-    prokka --outdir mydir --locustag EHEC --proteins NewToxins.faa --evalue 0.001 --gram neg --addgenes contigs.fa
-    """
-}
 
 
