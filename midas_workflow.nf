@@ -5,7 +5,6 @@ fastq_ch = Channel.from(file(params.manifest).readLines())
 
 params.input_type = "fastq"
 params.input_type_knead = "*.kneaddata.trimmed.fastq"
-params.input_type_midas = "*.midas.merged.tsv"
 
 process kneaddata {
     container "https://github.com/brianmorganpalmer/kneaddata.git"
