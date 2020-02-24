@@ -72,20 +72,22 @@ params.input_type = "fastq"
 params.input_type_knead = "*.kneaddata.trimmed.fastq"
 
 process kneaddata {
-    container "https://github.com/brianmorganpalmer/kneaddata.git"
-    cpus 16
-    memory "256 GB"
-    publishDir "${params.output_folder}"
+    container "biobakery/kneaddata:0.7.3_cloud"
+    label 'mem_medium'
+    
     input:
-    file input_fastq from fastq_ch
-    val input_type from params.input_type
+    tuple val(specimen), file(R1), file(R2) from fastq_ch
+    
     output:
-    file "${input_fastq}.kneaddata.trimmed.fastq"
-    reference-db:
-    file "s3://mcleanlabmidas/Kneaddata_database/ribosomal_RNA_db/"
+    tuple val(specimen), file("*_kneaddata.trimmed.1.fastq"), file("*_kneaddata.trimmed.2.fastq") into trimmed_fastq_ch
+
     """
-    kneaddata --input $INPUT --reference-db $DATABASE --output $OUTPUT_DIR
-    """
+#!/bin/bash
+
+set -e
+
+kneaddata --input ${R1} --input ${R2} --output ./
+"""
 }
 
 process midas {
