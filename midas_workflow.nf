@@ -14,6 +14,7 @@ def helpMessage() {
     
     Required Arguments:
       --manifest            CSV file listing samples (see below)
+      --db                  Folder containing the MIDAS database
 
     Options:
       --output_folder       Folder to place analysis outputs (default ./midas)
@@ -29,13 +30,36 @@ def helpMessage() {
 }
 
 // Show help message if the user specifies the --help flag at runtime, or omits the --manifest
-if (params.help || params.manifest == null){
+if (params.help || params.manifest == null || params.db == null){
     // Invoke the function above which prints the help message
     helpMessage()
     // Exit out and do not run anything else
     exit 0
 }
 
+// Make sure that the manifest file can be found
+if (file(params.manifest).isEmpty()){
+
+    // Print a helpful log message
+    log.info"""
+    Cannot find the file specified by --manifest ${params.manifest}
+    """.stripIndent()
+
+    // Exit out and do not run anything else
+    exit 0
+}
+
+// Make sure that the database file can be found
+if (file(params.db).isEmpty()){
+
+    // Print a helpful log message
+    log.info"""
+    Cannot find the file specified by --db ${params.db}
+    """.stripIndent()
+
+    // Exit out and do not run anything else
+    exit 0
+}
 
 // Set default options, which are overridden by the user with, e.g., --output_folder OTHER_VALUE
 params.output_folder =  'midas'
@@ -91,21 +115,39 @@ kneaddata --input ${R1} --input ${R2} --output ./
 }
 
 process midas {
-    container "https://github.com/FredHutch/docker-midas.git"
-    cpus 16
-    memory "256 GB"
+    container "quay.io/fhcrc-microbiome/midas:v1.3.2--6"
+    label "mem_veryhigh"
     publishDir "${params.output_folder}"
+
     input:
-    file input_fastq from (***Should be from kneaddata output?***)
-    val input_type from params.input_type_knead
+    tuple val(specimen), file(R1), file(R2) from trimmed_fastq_ch
+    file DB from file(params.db)
+
     output:
-    file "${input_fastq}.midas.species.tsv",
-    file "${input_fastq}.midas.genes.tsv",
-    file "${input_fastq}.midas.snp.tsv",
-    file "${input_fastq}.midas.merged.tsv"
-    """
-    run.py --input_type ${input_type} --tmp_dir ./ -o ${input_fastq}.midas.tsv ${input_fastq}
-    """
+    file "${specimen}.midas.species.tsv"
+    file "${specimen}.midas.genes.tsv"
+    file "${specimen}.midas.snp.tsv"
+    file "${specimen}.midas.merged.tsv"
+"""
+#!/bin/bash
+
+set -e
+
+echo "Running species summary"
+    
+# Run the species abundance summary
+run_midas.py \
+    snps \
+    OUTPUT \
+    -1 ${R1} \
+    -2 ${R2} \
+    -t ${task.cpus} \
+    --remove_temp
+
+# Run the gene abundance summary
+echo "Running gene summary"
+    
+"""
 }
 
 
