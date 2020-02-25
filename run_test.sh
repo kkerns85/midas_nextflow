@@ -12,7 +12,7 @@ NXF_VER=20.01.0 \
     --manifest test_data/manifest.paired.csv \
     --db db/ \
     --output_folder test_output/paired/ \
-    --species_cov 0.1 \
+    --species_cov 0.01 \
     -with-docker ubuntu:18.04 \
     -w work/ \
     -process.executor local \
@@ -31,7 +31,7 @@ NXF_VER=20.01.0 \
     --manifest test_data/manifest.single.csv \
     --db db/ \
     --output_folder test_output/single/ \
-    --species_cov 0.1 \
+    --species_cov 0.01 \
     --single \
     -with-docker ubuntu:18.04 \
     -w work/ \
