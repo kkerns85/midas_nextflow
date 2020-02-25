@@ -1,0 +1,630 @@
+Database name=/kris//marker_genes/phyeco.fa
+Number of sequences=206
+Number of nucls=146973
+subject 1
+TM7_GWC2_00258
+gi=0 id_offset=0 seq_offset=0 seq_length=1128
+subject 2
+TM7_GWC2_00262
+gi=0 id_offset=15 seq_offset=1128 seq_length=969
+subject 3
+TM7_GWC2_00021
+gi=0 id_offset=30 seq_offset=2097 seq_length=480
+subject 4
+TM7_GWC2_00478
+gi=0 id_offset=45 seq_offset=2577 seq_length=1029
+subject 5
+TM7_GWC2_00538
+gi=0 id_offset=60 seq_offset=3606 seq_length=579
+subject 6
+TM7_GWC2_00845
+gi=0 id_offset=75 seq_offset=4185 seq_length=660
+subject 7
+TM7_GWC2_00997
+gi=0 id_offset=90 seq_offset=4845 seq_length=555
+subject 8
+TM7_GWC2_00123
+gi=0 id_offset=105 seq_offset=5400 seq_length=615
+subject 9
+TM7_GWC2_00907
+gi=0 id_offset=120 seq_offset=6015 seq_length=885
+subject 10
+TM7_GWC2_01094
+gi=0 id_offset=135 seq_offset=6900 seq_length=564
+subject 11
+TM7_12A_lb_00210
+gi=0 id_offset=150 seq_offset=7464 seq_length=969
+subject 12
+TM7_12A_lb_00154
+gi=0 id_offset=167 seq_offset=8433 seq_length=474
+subject 13
+TM7_12A_lb_00475
+gi=0 id_offset=184 seq_offset=8907 seq_length=360
+subject 14
+TM7_12A_lb_00216
+gi=0 id_offset=201 seq_offset=9267 seq_length=702
+subject 15
+TM7_12A_lb_00165
+gi=0 id_offset=218 seq_offset=9969 seq_length=555
+subject 16
+TM7_12A_lb_00391
+gi=0 id_offset=235 seq_offset=10524 seq_length=1020
+subject 17
+G1_578_00851
+gi=0 id_offset=252 seq_offset=11544 seq_length=1086
+subject 18
+G1_578_01015
+gi=0 id_offset=265 seq_offset=12630 seq_length=1263
+subject 19
+G1_578_00562
+gi=0 id_offset=278 seq_offset=13893 seq_length=459
+subject 20
+G1_578_00518
+gi=0 id_offset=291 seq_offset=14352 seq_length=339
+subject 21
+G1_578_01010
+gi=0 id_offset=304 seq_offset=14691 seq_length=591
+subject 22
+G1_578_00461
+gi=0 id_offset=317 seq_offset=15282 seq_length=867
+subject 23
+G1_578_01023
+gi=0 id_offset=330 seq_offset=16149 seq_length=450
+subject 24
+G1_578_00513
+gi=0 id_offset=343 seq_offset=16599 seq_length=546
+subject 25
+G1_578_00939
+gi=0 id_offset=356 seq_offset=17145 seq_length=609
+subject 26
+G1_578_00415
+gi=0 id_offset=369 seq_offset=17754 seq_length=885
+subject 27
+G1_578_00118
+gi=0 id_offset=382 seq_offset=18639 seq_length=525
+subject 28
+GN02_G1_144402_00199
+gi=0 id_offset=395 seq_offset=19164 seq_length=1092
+subject 29
+GN02_G1_144402_00662
+gi=0 id_offset=416 seq_offset=20256 seq_length=981
+subject 30
+GN02_G1_144402_00007
+gi=0 id_offset=437 seq_offset=21237 seq_length=459
+subject 31
+GN02_G1_144402_00882
+gi=0 id_offset=458 seq_offset=21696 seq_length=339
+subject 32
+GN02_G1_144402_00666
+gi=0 id_offset=479 seq_offset=22035 seq_length=591
+subject 33
+GN02_G1_144402_00538
+gi=0 id_offset=500 seq_offset=22626 seq_length=867
+subject 34
+GN02_G1_144402_00830
+gi=0 id_offset=521 seq_offset=23493 seq_length=450
+subject 35
+GN02_G1_144402_00411
+gi=0 id_offset=542 seq_offset=23943 seq_length=546
+subject 36
+GN02_G1_144402_01021
+gi=0 id_offset=563 seq_offset=24489 seq_length=609
+subject 37
+GN02_G1_144402_00968
+gi=0 id_offset=584 seq_offset=25098 seq_length=885
+subject 38
+GN02_G1_144402_00853
+gi=0 id_offset=605 seq_offset=25983 seq_length=525
+subject 39
+TM7_G6_V1_00142
+gi=0 id_offset=626 seq_offset=26508 seq_length=1209
+subject 40
+TM7_G6_V1_00260
+gi=0 id_offset=642 seq_offset=27717 seq_length=945
+subject 41
+TM7_G6_V1_00545
+gi=0 id_offset=658 seq_offset=28662 seq_length=471
+subject 42
+TM7_G6_V1_00023
+gi=0 id_offset=674 seq_offset=29133 seq_length=1062
+subject 43
+TM7_G6_V1_00131
+gi=0 id_offset=690 seq_offset=30195 seq_length=579
+subject 44
+TM7_G6_V1_00384
+gi=0 id_offset=706 seq_offset=30774 seq_length=768
+subject 45
+TM7_G6_V1_00311
+gi=0 id_offset=722 seq_offset=31542 seq_length=555
+subject 46
+TM7_G6_V1_00622
+gi=0 id_offset=738 seq_offset=32097 seq_length=618
+subject 47
+TM7_G6_V1_00418
+gi=0 id_offset=754 seq_offset=32715 seq_length=855
+subject 48
+TM7_G6_V1_00224
+gi=0 id_offset=770 seq_offset=33570 seq_length=579
+subject 49
+GN02_G2_144124_00834
+gi=0 id_offset=786 seq_offset=34149 seq_length=1146
+subject 50
+GN02_G2_144124_00643
+gi=0 id_offset=807 seq_offset=35295 seq_length=762
+subject 51
+GN02_G2_144124_00592
+gi=0 id_offset=828 seq_offset=36057 seq_length=450
+subject 52
+GN02_G2_144124_00246
+gi=0 id_offset=849 seq_offset=36507 seq_length=879
+subject 53
+GN02_G2_144124_00905
+gi=0 id_offset=870 seq_offset=37386 seq_length=576
+subject 54
+GN02_G2_144124_00663
+gi=0 id_offset=891 seq_offset=37962 seq_length=870
+subject 55
+GN02_G2_144124_00247
+gi=0 id_offset=912 seq_offset=38832 seq_length=432
+subject 56
+GN02_G2_144124_00575
+gi=0 id_offset=933 seq_offset=39264 seq_length=546
+subject 57
+GN02_G2_144124_00183
+gi=0 id_offset=954 seq_offset=39810 seq_length=591
+subject 58
+GN02_G2_144124_00135
+gi=0 id_offset=975 seq_offset=40401 seq_length=963
+subject 59
+GN02_G2_144124_00880
+gi=0 id_offset=996 seq_offset=41364 seq_length=531
+subject 60
+G1_603_00125
+gi=0 id_offset=1017 seq_offset=41895 seq_length=1086
+subject 61
+G1_603_00338
+gi=0 id_offset=1030 seq_offset=42981 seq_length=1263
+subject 62
+G1_603_00520
+gi=0 id_offset=1043 seq_offset=44244 seq_length=459
+subject 63
+G1_603_00563
+gi=0 id_offset=1056 seq_offset=44703 seq_length=339
+subject 64
+G1_603_00334
+gi=0 id_offset=1069 seq_offset=45042 seq_length=591
+subject 65
+G1_603_00883
+gi=0 id_offset=1082 seq_offset=45633 seq_length=867
+subject 66
+G1_603_00346
+gi=0 id_offset=1095 seq_offset=46500 seq_length=450
+subject 67
+G1_603_00569
+gi=0 id_offset=1108 seq_offset=46950 seq_length=546
+subject 68
+G1_603_00209
+gi=0 id_offset=1121 seq_offset=47496 seq_length=609
+subject 69
+G1_603_00830
+gi=0 id_offset=1134 seq_offset=48105 seq_length=885
+subject 70
+G1_603_00667
+gi=0 id_offset=1147 seq_offset=48990 seq_length=525
+subject 71
+TM7_12A_sb_00007
+gi=0 id_offset=1160 seq_offset=49515 seq_length=1041
+subject 72
+TM7_12A_sb_00003
+gi=0 id_offset=1177 seq_offset=50556 seq_length=957
+subject 73
+TM7_12A_sb_00074
+gi=0 id_offset=1194 seq_offset=51513 seq_length=516
+subject 74
+TM7_12A_sb_00373
+gi=0 id_offset=1211 seq_offset=52029 seq_length=582
+subject 75
+TM7_12A_sb_00338
+gi=0 id_offset=1228 seq_offset=52611 seq_length=687
+subject 76
+TM7_12A_sb_00140
+gi=0 id_offset=1245 seq_offset=53298 seq_length=552
+subject 77
+TM7_12A_sb_00230
+gi=0 id_offset=1262 seq_offset=53850 seq_length=633
+subject 78
+TM7_12A_sb_00647
+gi=0 id_offset=1279 seq_offset=54483 seq_length=924
+subject 79
+TM7_12A_sb_00625
+gi=0 id_offset=1296 seq_offset=55407 seq_length=576
+subject 80
+GN02_G2_053917_00576
+gi=0 id_offset=1313 seq_offset=55983 seq_length=1095
+subject 81
+GN02_G2_053917_00133
+gi=0 id_offset=1334 seq_offset=57078 seq_length=768
+subject 82
+GN02_G2_053917_00080
+gi=0 id_offset=1355 seq_offset=57846 seq_length=450
+subject 83
+GN02_G2_053917_00431
+gi=0 id_offset=1376 seq_offset=58296 seq_length=879
+subject 84
+GN02_G2_053917_00645
+gi=0 id_offset=1397 seq_offset=59175 seq_length=576
+subject 85
+GN02_G2_053917_00154
+gi=0 id_offset=1418 seq_offset=59751 seq_length=870
+subject 86
+GN02_G2_053917_00432
+gi=0 id_offset=1439 seq_offset=60621 seq_length=456
+subject 87
+GN02_G2_053917_00061
+gi=0 id_offset=1460 seq_offset=61077 seq_length=546
+subject 88
+GN02_G2_053917_00371
+gi=0 id_offset=1481 seq_offset=61623 seq_length=591
+subject 89
+GN02_G2_053917_00322
+gi=0 id_offset=1502 seq_offset=62214 seq_length=963
+subject 90
+GN02_G2_053917_00621
+gi=0 id_offset=1523 seq_offset=63177 seq_length=531
+subject 91
+TM7_9A_sb_00524
+gi=0 id_offset=1544 seq_offset=63708 seq_length=1041
+subject 92
+TM7_9A_sb_00520
+gi=0 id_offset=1560 seq_offset=64749 seq_length=957
+subject 93
+TM7_9A_sb_00046
+gi=0 id_offset=1576 seq_offset=65706 seq_length=516
+subject 94
+TM7_9A_sb_00310
+gi=0 id_offset=1592 seq_offset=66222 seq_length=582
+subject 95
+TM7_9A_sb_00276
+gi=0 id_offset=1608 seq_offset=66804 seq_length=687
+subject 96
+TM7_9A_sb_00340
+gi=0 id_offset=1624 seq_offset=67491 seq_length=552
+subject 97
+TM7_9A_sb_00092
+gi=0 id_offset=1640 seq_offset=68043 seq_length=633
+subject 98
+TM7_9A_sb_00648
+gi=0 id_offset=1656 seq_offset=68676 seq_length=924
+subject 99
+TM7_9A_sb_00692
+gi=0 id_offset=1672 seq_offset=69600 seq_length=576
+subject 100
+G1_410_00461
+gi=0 id_offset=1688 seq_offset=70176 seq_length=1086
+subject 101
+G1_410_00815
+gi=0 id_offset=1701 seq_offset=71262 seq_length=1263
+subject 102
+G1_410_00052
+gi=0 id_offset=1714 seq_offset=72525 seq_length=459
+subject 103
+G1_410_00095
+gi=0 id_offset=1727 seq_offset=72984 seq_length=309
+subject 104
+G1_410_00811
+gi=0 id_offset=1740 seq_offset=73293 seq_length=591
+subject 105
+G1_410_00151
+gi=0 id_offset=1753 seq_offset=73884 seq_length=867
+subject 106
+G1_410_00823
+gi=0 id_offset=1766 seq_offset=74751 seq_length=450
+subject 107
+G1_410_00100
+gi=0 id_offset=1779 seq_offset=75201 seq_length=546
+subject 108
+G1_410_00554
+gi=0 id_offset=1792 seq_offset=75747 seq_length=609
+subject 109
+G1_410_00199
+gi=0 id_offset=1805 seq_offset=76356 seq_length=885
+subject 110
+G1_410_00303
+gi=0 id_offset=1818 seq_offset=77241 seq_length=525
+subject 111
+GN02_G2_014578_00688
+gi=0 id_offset=1831 seq_offset=77766 seq_length=1095
+subject 112
+GN02_G2_014578_00528
+gi=0 id_offset=1852 seq_offset=78861 seq_length=768
+subject 113
+GN02_G2_014578_00474
+gi=0 id_offset=1873 seq_offset=79629 seq_length=450
+subject 114
+GN02_G2_014578_00241
+gi=0 id_offset=1894 seq_offset=80079 seq_length=879
+subject 115
+GN02_G2_014578_00129
+gi=0 id_offset=1915 seq_offset=80958 seq_length=354
+subject 116
+GN02_G2_014578_00758
+gi=0 id_offset=1936 seq_offset=81312 seq_length=576
+subject 117
+GN02_G2_014578_00548
+gi=0 id_offset=1957 seq_offset=81888 seq_length=870
+subject 118
+GN02_G2_014578_00240
+gi=0 id_offset=1978 seq_offset=82758 seq_length=456
+subject 119
+GN02_G2_014578_00457
+gi=0 id_offset=1999 seq_offset=83214 seq_length=546
+subject 120
+GN02_G2_014578_00298
+gi=0 id_offset=2020 seq_offset=83760 seq_length=591
+subject 121
+GN02_G2_014578_00347
+gi=0 id_offset=2041 seq_offset=84351 seq_length=963
+subject 122
+GN02_G2_014578_00735
+gi=0 id_offset=2062 seq_offset=85314 seq_length=531
+subject 123
+TM7c_00279
+gi=0 id_offset=2083 seq_offset=85845 seq_length=1020
+subject 124
+TM7c_00147
+gi=0 id_offset=2094 seq_offset=86865 seq_length=483
+subject 125
+TM7c_00134
+gi=0 id_offset=2105 seq_offset=87348 seq_length=564
+subject 126
+TM7c_00169
+gi=0 id_offset=2116 seq_offset=87912 seq_length=618
+subject 127
+TM7c_00069
+gi=0 id_offset=2127 seq_offset=88530 seq_length=891
+subject 128
+TM7x_00461
+gi=0 id_offset=2138 seq_offset=89421 seq_length=1122
+subject 129
+TM7x_00466
+gi=0 id_offset=2149 seq_offset=90543 seq_length=987
+subject 130
+TM7x_00284
+gi=0 id_offset=2160 seq_offset=91530 seq_length=477
+subject 131
+TM7x_00604
+gi=0 id_offset=2171 seq_offset=92007 seq_length=1026
+subject 132
+TM7x_00637
+gi=0 id_offset=2182 seq_offset=93033 seq_length=576
+subject 133
+TM7x_00066
+gi=0 id_offset=2193 seq_offset=93609 seq_length=657
+subject 134
+TM7x_00187
+gi=0 id_offset=2204 seq_offset=94266 seq_length=555
+subject 135
+TM7x_00319
+gi=0 id_offset=2215 seq_offset=94821 seq_length=618
+subject 136
+TM7x_00108
+gi=0 id_offset=2226 seq_offset=95439 seq_length=891
+subject 137
+TM7x_00260
+gi=0 id_offset=2237 seq_offset=96330 seq_length=561
+subject 138
+ANC_38.39_00246
+gi=0 id_offset=2248 seq_offset=96891 seq_length=1116
+subject 139
+ANC_38.39_00203
+gi=0 id_offset=2264 seq_offset=98007 seq_length=579
+subject 140
+ANC_38.39_00206
+gi=0 id_offset=2280 seq_offset=98586 seq_length=699
+subject 141
+ANC_38.39_00024
+gi=0 id_offset=2296 seq_offset=99285 seq_length=612
+subject 142
+ANC_38.39_00279
+gi=0 id_offset=2312 seq_offset=99897 seq_length=555
+subject 143
+ANC_38.39_00519
+gi=0 id_offset=2328 seq_offset=100452 seq_length=930
+subject 144
+ANC_38.39_00430
+gi=0 id_offset=2344 seq_offset=101382 seq_length=561
+subject 145
+S.aal_00603
+gi=0 id_offset=2360 seq_offset=101943 seq_length=1167
+subject 146
+S.aal_00615
+gi=0 id_offset=2372 seq_offset=103110 seq_length=948
+subject 147
+S.aal_00371
+gi=0 id_offset=2384 seq_offset=104058 seq_length=621
+subject 148
+S.aal_00864
+gi=0 id_offset=2396 seq_offset=104679 seq_length=1020
+subject 149
+S.aal_00911
+gi=0 id_offset=2408 seq_offset=105699 seq_length=576
+subject 150
+S.aal_00100
+gi=0 id_offset=2420 seq_offset=106275 seq_length=669
+subject 151
+S.aal_00237
+gi=0 id_offset=2432 seq_offset=106944 seq_length=555
+subject 152
+S.aal_00426
+gi=0 id_offset=2444 seq_offset=107499 seq_length=618
+subject 153
+S.aal_00160
+gi=0 id_offset=2456 seq_offset=108117 seq_length=897
+subject 154
+S.aal_00314
+gi=0 id_offset=2468 seq_offset=109014 seq_length=564
+subject 155
+TM7_S1_00263
+gi=0 id_offset=2480 seq_offset=109578 seq_length=486
+subject 156
+TM7_S1_00379
+gi=0 id_offset=2493 seq_offset=110064 seq_length=606
+subject 157
+TM7_S2_00024
+gi=0 id_offset=2506 seq_offset=110670 seq_length=606
+subject 158
+TM7_S2_00487
+gi=0 id_offset=2519 seq_offset=111276 seq_length=885
+subject 159
+TM7_S2_00207
+gi=0 id_offset=2532 seq_offset=112161 seq_length=579
+subject 160
+TM7_S2_00144
+gi=0 id_offset=2545 seq_offset=112740 seq_length=618
+subject 161
+TM7_1_rum_00003
+gi=0 id_offset=2558 seq_offset=113358 seq_length=1119
+subject 162
+TM7_1_rum_00416
+gi=0 id_offset=2574 seq_offset=114477 seq_length=954
+subject 163
+TM7_1_rum_00013
+gi=0 id_offset=2590 seq_offset=115431 seq_length=417
+subject 164
+TM7_1_rum_00393
+gi=0 id_offset=2606 seq_offset=115848 seq_length=1041
+subject 165
+TM7_1_rum_00414
+gi=0 id_offset=2622 seq_offset=116889 seq_length=576
+subject 166
+TM7_1_rum_00399
+gi=0 id_offset=2638 seq_offset=117465 seq_length=735
+subject 167
+TM7_1_rum_00682
+gi=0 id_offset=2654 seq_offset=118200 seq_length=546
+subject 168
+TM7_1_rum_00602
+gi=0 id_offset=2670 seq_offset=118746 seq_length=606
+subject 169
+TM7_1_rum_00463
+gi=0 id_offset=2686 seq_offset=119352 seq_length=750
+subject 170
+TM7_S7_00350
+gi=0 id_offset=2702 seq_offset=120102 seq_length=999
+subject 171
+TM7_S7_00420
+gi=0 id_offset=2715 seq_offset=121101 seq_length=576
+subject 172
+TM7_S7_00065
+gi=0 id_offset=2728 seq_offset=121677 seq_length=753
+subject 173
+TM7_S7_00299
+gi=0 id_offset=2741 seq_offset=122430 seq_length=555
+subject 174
+TM7_S7_00118
+gi=0 id_offset=2754 seq_offset=122985 seq_length=921
+subject 175
+TM7_S7_00519
+gi=0 id_offset=2767 seq_offset=123906 seq_length=1038
+subject 176
+TM7_S7_00657
+gi=0 id_offset=2780 seq_offset=124944 seq_length=564
+subject 177
+PROKKA_00150
+gi=0 id_offset=2793 seq_offset=125508 seq_length=1104
+subject 178
+PROKKA_00498
+gi=0 id_offset=2806 seq_offset=126612 seq_length=1023
+subject 179
+PROKKA_00375
+gi=0 id_offset=2819 seq_offset=127635 seq_length=423
+subject 180
+PROKKA_00079
+gi=0 id_offset=2832 seq_offset=128058 seq_length=579
+subject 181
+PROKKA_00458
+gi=0 id_offset=2845 seq_offset=128637 seq_length=690
+subject 182
+PROKKA_00512
+gi=0 id_offset=2858 seq_offset=129327 seq_length=363
+subject 183
+PROKKA_00524
+gi=0 id_offset=2871 seq_offset=129690 seq_length=738
+subject 184
+PROKKA_00527
+gi=0 id_offset=2884 seq_offset=130428 seq_length=519
+subject 185
+G1HOT871_899_00744
+gi=0 id_offset=2897 seq_offset=130947 seq_length=1077
+subject 186
+G1HOT871_899_00458
+gi=0 id_offset=2916 seq_offset=132024 seq_length=1263
+subject 187
+G1HOT871_899_01101
+gi=0 id_offset=2935 seq_offset=133287 seq_length=456
+subject 188
+G1HOT871_899_00972
+gi=0 id_offset=2954 seq_offset=133743 seq_length=942
+subject 189
+G1HOT871_899_00502
+gi=0 id_offset=2973 seq_offset=134685 seq_length=339
+subject 190
+G1HOT871_899_00469
+gi=0 id_offset=2992 seq_offset=135024 seq_length=591
+subject 191
+G1HOT871_899_00784
+gi=0 id_offset=3011 seq_offset=135615 seq_length=834
+subject 192
+G1HOT871_899_00451
+gi=0 id_offset=3030 seq_offset=136449 seq_length=450
+subject 193
+G1HOT871_899_01083
+gi=0 id_offset=3049 seq_offset=136899 seq_length=546
+subject 194
+G1HOT871_899_00639
+gi=0 id_offset=3068 seq_offset=137445 seq_length=609
+subject 195
+G1HOT871_899_00810
+gi=0 id_offset=3087 seq_offset=138054 seq_length=894
+subject 196
+G1HOT871_899_00308
+gi=0 id_offset=3106 seq_offset=138948 seq_length=525
+subject 197
+RAAC3_00835
+gi=0 id_offset=3125 seq_offset=139473 seq_length=1122
+subject 198
+RAAC3_00839
+gi=0 id_offset=3137 seq_offset=140595 seq_length=957
+subject 199
+RAAC3_00667
+gi=0 id_offset=3149 seq_offset=141552 seq_length=501
+subject 200
+RAAC3_00107
+gi=0 id_offset=3161 seq_offset=142053 seq_length=1020
+subject 201
+RAAC3_00177
+gi=0 id_offset=3173 seq_offset=143073 seq_length=573
+subject 202
+RAAC3_00409
+gi=0 id_offset=3185 seq_offset=143646 seq_length=690
+subject 203
+RAAC3_00562
+gi=0 id_offset=3197 seq_offset=144336 seq_length=588
+subject 204
+RAAC3_00713
+gi=0 id_offset=3209 seq_offset=144924 seq_length=615
+subject 205
+RAAC3_00474
+gi=0 id_offset=3221 seq_offset=145539 seq_length=867
+subject 206
+RAAC3_00637
+gi=0 id_offset=3233 seq_offset=146406 seq_length=567
+Posted date:
+	tm_sec=49
+	tm_min=14
+	tm_hour=21
+	tm_mday=29
+	tm_mon=4
+	tm_year=118
+	tm_wday=2
+	tm_yday=148
