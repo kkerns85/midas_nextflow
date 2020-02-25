@@ -233,7 +233,6 @@ else
         snps \
         OUTPUT \
         -1 ${specimen}.R1.fastq.gz \
-        -2 ${specimen}.R2.fastq.gz \
         -t ${task.cpus} \
         -d ${DB} \
         --species_cov ${params.species_cov}
