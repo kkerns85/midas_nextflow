@@ -40,7 +40,7 @@ process buildMIDASdb {
     path "mapfile" from file(params.mapfile)
     
     output:
-    path "DB"
+    path "*"
 
     """
 #!/bin/bash
@@ -50,7 +50,7 @@ set -e
 build_midas_db.py \
     GENOMES \
     mapfile \
-    DB/ \
+    ./ \
     --threads ${task.cpus} \
     --compress
 """
