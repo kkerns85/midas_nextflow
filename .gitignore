@@ -1,6 +1,6 @@
 .nextflow*
 report.html*
-trace.txt*
+trace.*
 work/
 test_output/
 db/
