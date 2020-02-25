@@ -1,0 +1,25 @@
+name: MIDAS Continuous Integration
+
+on: [push, pull_request]  
+
+jobs:
+
+  complete_workflow:
+    runs-on: ubuntu-latest
+    env:
+      NXF_ANSI_LOG: 0
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install Nextflow
+        run: |
+          wget -qO- get.nextflow.io | bash
+          sudo mv nextflow /usr/local/bin/
+      - name:  Build the test database
+        run: |
+          NXF_VER=20.01.0 nextflow run build_db.nf -c nextflow.config -profile testing --genome_folder test_data/genomes --mapfile test_data/genomes.mapfile --output_folder db/ -with-docker ubuntu:18.04 -w work/ -process.executor local
+      - name:  Process single-ended data
+        run: |
+          NXF_VER=20.01.0 nextflow run midas_workflow.nf -c nextflow.config -profile testing --manifest test_data/manifest.single.csv --db db/ --output_folder test_output/single/ --species_cov 0.1 --single -with-docker ubuntu:18.04 -w work/ -process.executor local
+      - name:  Process paired-ended data
+        run: |
+          NXF_VER=20.01.0 nextflow run midas_workflow.nf -c nextflow.config -profile testing --manifest test_data/manifest.paired.csv --db db/ --output_folder test_output/paired/ --species_cov 0.1 -with-docker ubuntu:18.04 -w work/ -process.executor local
