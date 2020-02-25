@@ -18,7 +18,8 @@ def helpMessage() {
 
     Options:
       --output_folder       Folder to place analysis outputs (default ./midas)
-      --output_prefix       Text used as a prefix for output files (default: midas)      
+      --output_prefix       Text used as a prefix for output files (default: midas)
+      --species_cov         Coverage (depth) threshold for species inclusion (default: 3.0)
 
     Manifest:
       The manifest is a CSV with a header indicating which samples correspond to which files.
@@ -64,6 +65,7 @@ if (file(params.db).isEmpty()){
 // Set default options, which are overridden by the user with, e.g., --output_folder OTHER_VALUE
 params.output_folder =  'midas'
 params.output_prefix =  'midas'
+params.species_cov = 3.0
 
 
 // Parse the manifest CSV
@@ -124,10 +126,14 @@ process midas {
     file DB from file(params.db)
 
     output:
-    file "${specimen}.midas.species.tsv"
-    file "${specimen}.midas.genes.tsv"
-    file "${specimen}.midas.snp.tsv"
-    file "${specimen}.midas.merged.tsv"
+    file "${specimen}.midas.species.txt.gz"
+    file "${specimen}.midas.species.log.gz"
+    file "${specimen}.midas.genes.log.gz"
+    file "${specimen}.midas.genes.summary.txt.gz"
+    file "${specimen}.midas.genes.tar"
+    file "${specimen}.midas.snps.log.gz"
+    file "${specimen}.midas.snps.summary.txt.gz"
+    file "${specimen}.midas.snps.tar"
 """
 #!/bin/bash
 
@@ -137,16 +143,57 @@ echo "Running species summary"
     
 # Run the species abundance summary
 run_midas.py \
+    species \
+    OUTPUT \
+    -1 ${R1} \
+    -2 ${R2} \
+    -t ${task.cpus} \
+    -d ${DB}
+
+# Run the gene abundance summary
+echo "Running gene summary"
+run_midas.py \
+    genes \
+    OUTPUT \
+    -1 ${R1} \
+    -2 ${R2} \
+    -t ${task.cpus} \
+    -d ${DB} \
+    --species_cov ${params.species_cov}
+
+# Run the SNP summary
+echo "Running SNP summary"
+run_midas.py \
     snps \
     OUTPUT \
     -1 ${R1} \
     -2 ${R2} \
     -t ${task.cpus} \
-    --remove_temp
+    -d ${DB} \
+    --species_cov ${params.species_cov}
 
-# Run the gene abundance summary
-echo "Running gene summary"
-    
+echo "Gathering output files"
+
+# Species-level results
+mv OUTPUT/species/species_profile.txt ${specimen}.midas.species.txt
+mv OUTPUT/species/log.txt ${specimen}.midas.species.log
+
+# Gene-level results
+mv OUTPUT/genes/log.txt ${specimen}.midas.genes.log
+mv OUTPUT/genes/summary.txt ${specimen}.midas.genes.summary.txt
+tar cvf ${specimen}.midas.genes.tar OUTPUT/genes/output/*
+
+# SNP-level results
+mv OUTPUT/snps/log.txt ${specimen}.midas.snps.log
+mv OUTPUT/snps/summary.txt ${specimen}.midas.snps.summary.txt
+tar cvf ${specimen}.midas.snps.tar OUTPUT/snps/output/*
+
+# Compress output files
+gzip ${specimen}.midas.*log
+gzip ${specimen}.midas.*txt
+
+echo "Done"
+
 """
 }
 

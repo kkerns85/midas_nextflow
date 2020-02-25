@@ -8,7 +8,10 @@ NXF_VER=20.01.0 \
     -c nextflow.config \
     -profile testing \
     midas_workflow.nf \
-    --manifest test_data/manifest.txt \
+    --manifest test_data/manifest.paired.csv \
+    --db db/ \
+    --output_folder test_output/ \
+    --species_cov 0.1 \
     -with-docker ubuntu:18.04 \
     -w work/ \
     -process.executor local \

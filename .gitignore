@@ -1,5 +1,5 @@
 .nextflow*
-report.html*
+report.*
 trace.*
 work/
 test_output/
