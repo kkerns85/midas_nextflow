@@ -1,0 +1,6 @@
+.nextflow*
+report.*
+trace.*
+work/
+test_output/
+db/
