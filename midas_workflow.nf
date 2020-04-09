@@ -314,7 +314,7 @@ ls -lahtr SPECIES
 
 echo "Compressing output files"
 
-gzip SPECIES/*
+find SPECIES -type f | xargs gzip
 
 echo "Done"
 
@@ -378,7 +378,7 @@ ls -lahtr GENES
 
 echo "Compressing output files"
 
-gzip GENES/*
+find GENES -type f | xargs gzip
 
 echo "Done"
 
@@ -442,7 +442,7 @@ ls -lahtr SNPS
 
 echo "Compressing output files"
 
-gzip SNPS/*
+find SNPS -type f | xargs gzip
 
 echo "Done"
 
