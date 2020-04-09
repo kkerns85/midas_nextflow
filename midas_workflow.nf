@@ -118,7 +118,7 @@ if (params.single){
 }
 
 process kneaddata {
-    container "biobakery/kneaddata:0.7.3_cloud"
+    container "biobakery/kneaddata:0.7.5_cloud"
     label 'mem_medium'
     
     input:
