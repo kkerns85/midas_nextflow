@@ -148,21 +148,17 @@ gzip ${specimen}.R1_kneaddata.trimmed.[12].fastq
 process midas {
     container "quay.io/fhcrc-microbiome/midas:v1.3.2--6"
     label "mem_veryhigh"
-    publishDir "${params.output_folder}"
-
+    publishDir "${params.output_folder}/${specimen}"
+    
     input:
     tuple val(specimen), file("${specimen}.R*.fastq.gz") from trimmed_fastq_ch
     file DB from file(params.db)
 
     output:
-    file "${specimen}.midas.species.txt.gz"
-    file "${specimen}.midas.species.log.gz"
-    file "${specimen}.midas.genes.log.gz"
-    file "${specimen}.midas.genes.summary.txt.gz"
-    file "${specimen}.midas.genes.tar"
-    file "${specimen}.midas.snps.log.gz"
-    file "${specimen}.midas.snps.summary.txt.gz"
-    file "${specimen}.midas.snps.tar"
+    file "${specimen}.species.tar.gz" into species_ch
+    file "${specimen}.gene.tar.gz" into gene_ch
+    file "${specimen}.snps.tar.gz" into snps_ch
+
 """
 #!/bin/bash
 
@@ -241,22 +237,60 @@ fi
 echo "Gathering output files"
 
 # Species-level results
-mv OUTPUT/species/species_profile.txt ${specimen}.midas.species.txt
-mv OUTPUT/species/log.txt ${specimen}.midas.species.log
+echo "Tarring up species results"
+tar cvf ${specimen}.species.tar OUTPUT/species/*
+gzip ${specimen}.species.tar
 
 # Gene-level results
-mv OUTPUT/genes/log.txt ${specimen}.midas.genes.log
-mv OUTPUT/genes/summary.txt ${specimen}.midas.genes.summary.txt
-tar cvf ${specimen}.midas.genes.tar OUTPUT/genes/output/*
+echo "Tarring up gene results"
+tar cvf ${specimen}.gene.tar OUTPUT/gene/*
+gzip ${specimen}.gene.tar
 
 # SNP-level results
-mv OUTPUT/snps/log.txt ${specimen}.midas.snps.log
-mv OUTPUT/snps/summary.txt ${specimen}.midas.snps.summary.txt
-tar cvf ${specimen}.midas.snps.tar OUTPUT/snps/output/*
+echo "Tarring up SNP results"
+tar cvf ${specimen}.snps.tar OUTPUT/snps/*
+gzip ${specimen}.snps.tar
 
-# Compress output files
-gzip ${specimen}.midas.*log
-gzip ${specimen}.midas.*txt
+echo "Done"
+
+"""
+}
+
+process midas_merge_species {
+    container "quay.io/fhcrc-microbiome/midas:v1.3.2--6"
+    label "mem_veryhigh"
+    publishDir "${params.output_folder}"
+    
+    input:
+    file species_tar_list from species_ch.toSortedList()
+    file DB from file(params.db)
+
+    output:
+    file "SPECIES/*"
+
+"""
+#!/bin/bash
+
+set -e
+
+ls -lahtr
+
+echo "Merging species results"
+
+merge_midas.py \
+    species \
+    SPECIES \
+    -i \$( echo ${species_tar_list} | tr ' ' ',' ) \
+    -t list \
+    -d ${DB}
+
+echo "Done merging data"
+
+ls -lahtr SPECIES
+
+echo "Compressing output files"
+
+gzip SPECIES/*
 
 echo "Done"
 
@@ -264,4 +298,85 @@ echo "Done"
 }
 
 
+process midas_merge_genes {
+    container "quay.io/fhcrc-microbiome/midas:v1.3.2--6"
+    label "mem_veryhigh"
+    publishDir "${params.output_folder}"
+    
+    input:
+    file genes_tar_list from gene_ch.toSortedList()
+    file DB from file(params.db)
+
+    output:
+    file "GENES/*"
+
+"""
+#!/bin/bash
+
+set -e
+
+ls -lahtr
+
+echo "Merging gene results"
+
+merge_midas.py \
+    genes \
+    GENES \
+    -i \$( echo ${genes_tar_list} | tr ' ' ',' ) \
+    -t list \
+    -d ${DB}
+
+echo "Done merging data"
+
+ls -lahtr GENES
+
+echo "Compressing output files"
+
+gzip GENES/*
+
+echo "Done"
+
+"""
+}
+
+process midas_merge_snps {
+    container "quay.io/fhcrc-microbiome/midas:v1.3.2--6"
+    label "mem_veryhigh"
+    publishDir "${params.output_folder}"
+    
+    input:
+    file snps_tar_list from snps_ch.toSortedList()
+    file DB from file(params.db)
+
+    output:
+    file "SNPS/*"
+
+"""
+#!/bin/bash
+
+set -e
+
+ls -lahtr
+
+echo "Merging snps results"
+
+merge_midas.py \
+    snps \
+    SNPS \
+    -i \$( echo ${snps_tar_list} | tr ' ' ',' ) \
+    -t list \
+    -d ${DB}
+
+echo "Done merging data"
+
+ls -lahtr SNPS
+
+echo "Compressing output files"
+
+gzip SNPS/*
+
+echo "Done"
+
+"""
+}
 
