@@ -156,7 +156,7 @@ process midas {
 
     output:
     file "${specimen}.species.tar.gz" into species_ch
-    file "${specimen}.gene.tar.gz" into gene_ch
+    file "${specimen}.genes.tar.gz" into gene_ch
     file "${specimen}.snps.tar.gz" into snps_ch
 
 """
