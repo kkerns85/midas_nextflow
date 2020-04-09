@@ -342,7 +342,7 @@ ls -lahtr
 input_string=""
 
 echo "Unpacking all of the input files"
-for tarfile in ${species_tar_list}; do
+for tarfile in ${genes_tar_list}; do
     echo "Making sure that \$tarfile was downloaded correctly"
     [[ -s \$tarfile ]]
 
@@ -404,7 +404,7 @@ ls -lahtr
 input_string=""
 
 echo "Unpacking all of the input files"
-for tarfile in ${species_tar_list}; do
+for tarfile in ${snps_tar_list}; do
     echo "Making sure that \$tarfile was downloaded correctly"
     [[ -s \$tarfile ]]
 
