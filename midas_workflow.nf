@@ -21,6 +21,7 @@ def helpMessage() {
       --output_prefix       Text used as a prefix for output files (default: midas)
       --species_cov         Coverage (depth) threshold for species inclusion (default: 3.0)
       --single              Input data is single-end (default: treat as paired-end)
+      --merge_sample_depth  Corresponds to the --sample_depth parameter in the merge_midas.py command (default: 1.0)
 
     Manifest:
       The manifest is a CSV with a header indicating which samples correspond to which files.
@@ -68,6 +69,7 @@ if (file(params.db).isEmpty()){
 params.output_folder =  'midas'
 params.output_prefix =  'midas'
 params.species_cov = 3.0
+params.merge_sample_depth = 1.0
 params.single = false
 
 
@@ -303,7 +305,8 @@ merge_midas.py \
     SPECIES \
     -i \$input_string \
     -t list \
-    -d ${DB}
+    -d ${DB} \
+    --sample_depth ${params.merge_sample_depth}
 
 echo "Done merging data"
 
@@ -366,7 +369,8 @@ merge_midas.py \
     GENES \
     -i \$input_string \
     -t list \
-    -d ${DB}
+    -d ${DB} \
+    --sample_depth ${params.merge_sample_depth}
 
 echo "Done merging data"
 
@@ -428,7 +432,8 @@ merge_midas.py \
     SNPS \
     -i \$input_string \
     -t list \
-    -d ${DB}
+    -d ${DB} \
+    --sample_depth ${params.merge_sample_depth}
 
 echo "Done merging data"
 
