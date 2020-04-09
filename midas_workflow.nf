@@ -275,12 +275,33 @@ set -e
 
 ls -lahtr
 
+# Keep track of the folders created while unpacking input files
+input_string=""
+
+echo "Unpacking all of the input files"
+for tarfile in ${species_tar_list}; do
+    echo "Making sure that \$tarfile was downloaded correctly"
+    [[ -s \$tarfile ]]
+
+    echo "Unpacking \$tarfile"
+    tar xzvf \$tarfile
+
+    # Add this folder to the input string
+    input_string="\$input_string,\$( echo \$tarfile | sed 's/.species.tar.gz//' )"
+
+    echo "Updated input string: \$input_string"
+
+done
+
+# Remove the leading comma from the input string
+input_string=\$( echo \$input_string | sed 's/^,//' )
+
 echo "Merging species results"
 
 merge_midas.py \
     species \
     SPECIES \
-    -i \$( echo ${species_tar_list} | tr ' ' ',' ) \
+    -i \$input_string \
     -t list \
     -d ${DB}
 
@@ -317,12 +338,33 @@ set -e
 
 ls -lahtr
 
+# Keep track of the folders created while unpacking input files
+input_string=""
+
+echo "Unpacking all of the input files"
+for tarfile in ${species_tar_list}; do
+    echo "Making sure that \$tarfile was downloaded correctly"
+    [[ -s \$tarfile ]]
+
+    echo "Unpacking \$tarfile"
+    tar xzvf \$tarfile
+
+    # Add this folder to the input string
+    input_string="\$input_string,\$( echo \$tarfile | sed 's/.genes.tar.gz//' )"
+
+    echo "Updated input string: \$input_string"
+
+done
+
+# Remove the leading comma from the input string
+input_string=\$( echo \$input_string | sed 's/^,//' )
+
 echo "Merging gene results"
 
 merge_midas.py \
     genes \
     GENES \
-    -i \$( echo ${genes_tar_list} | tr ' ' ',' ) \
+    -i \$input_string \
     -t list \
     -d ${DB}
 
@@ -358,12 +400,33 @@ set -e
 
 ls -lahtr
 
+# Keep track of the folders created while unpacking input files
+input_string=""
+
+echo "Unpacking all of the input files"
+for tarfile in ${species_tar_list}; do
+    echo "Making sure that \$tarfile was downloaded correctly"
+    [[ -s \$tarfile ]]
+
+    echo "Unpacking \$tarfile"
+    tar xzvf \$tarfile
+
+    # Add this folder to the input string
+    input_string="\$input_string,\$( echo \$tarfile | sed 's/.snps.tar.gz//' )"
+
+    echo "Updated input string: \$input_string"
+
+done
+
+# Remove the leading comma from the input string
+input_string=\$( echo \$input_string | sed 's/^,//' )
+
 echo "Merging snps results"
 
 merge_midas.py \
     snps \
     SNPS \
-    -i \$( echo ${snps_tar_list} | tr ' ' ',' ) \
+    -i \$input_string \
     -t list \
     -d ${DB}
 
