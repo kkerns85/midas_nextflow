@@ -21,6 +21,7 @@ def helpMessage() {
       --output_prefix       Text used as a prefix for output files (default: midas)
       --species_cov         Coverage (depth) threshold for species inclusion (default: 3.0)
       --single              Input data is single-end (default: treat as paired-end)
+      --merge_sample_depth  Corresponds to the --sample_depth parameter in the merge_midas.py command (default: 1.0)
 
     Manifest:
       The manifest is a CSV with a header indicating which samples correspond to which files.
@@ -68,6 +69,7 @@ if (file(params.db).isEmpty()){
 params.output_folder =  'midas'
 params.output_prefix =  'midas'
 params.species_cov = 3.0
+params.merge_sample_depth = 1.0
 params.single = false
 
 
@@ -118,7 +120,7 @@ if (params.single){
 }
 
 process kneaddata {
-    container "biobakery/kneaddata:0.7.3_cloud"
+    container "biobakery/kneaddata:0.7.5_cloud"
     label 'mem_medium'
     
     input:
@@ -148,21 +150,17 @@ gzip ${specimen}.R1_kneaddata.trimmed.[12].fastq
 process midas {
     container "quay.io/fhcrc-microbiome/midas:v1.3.2--6"
     label "mem_veryhigh"
-    publishDir "${params.output_folder}"
-
+    publishDir "${params.output_folder}/${specimen}"
+    
     input:
     tuple val(specimen), file("${specimen}.R*.fastq.gz") from trimmed_fastq_ch
     file DB from file(params.db)
 
     output:
-    file "${specimen}.midas.species.txt.gz"
-    file "${specimen}.midas.species.log.gz"
-    file "${specimen}.midas.genes.log.gz"
-    file "${specimen}.midas.genes.summary.txt.gz"
-    file "${specimen}.midas.genes.tar"
-    file "${specimen}.midas.snps.log.gz"
-    file "${specimen}.midas.snps.summary.txt.gz"
-    file "${specimen}.midas.snps.tar"
+    file "${specimen}.species.tar.gz" into species_ch
+    file "${specimen}.genes.tar.gz" into gene_ch
+    file "${specimen}.snps.tar.gz" into snps_ch
+
 """
 #!/bin/bash
 
@@ -180,7 +178,7 @@ if [[ -s ${specimen}.R2.fastq.gz ]]; then
     # Run the species abundance summary
     run_midas.py \
         species \
-        OUTPUT \
+        ${specimen} \
         -1 ${specimen}.R1.fastq.gz \
         -2 ${specimen}.R2.fastq.gz \
         -t ${task.cpus} \
@@ -189,7 +187,7 @@ else
     # Run the species abundance summary
     run_midas.py \
         species \
-        OUTPUT \
+        ${specimen} \
         -1 ${specimen}.R1.fastq.gz \
         -t ${task.cpus} \
         -d ${DB}
@@ -200,7 +198,7 @@ if [[ -s ${specimen}.R2.fastq.gz ]]; then
     echo "Running gene summary"
     run_midas.py \
         genes \
-        OUTPUT \
+        ${specimen} \
         -1 ${specimen}.R1.fastq.gz \
         -2 ${specimen}.R2.fastq.gz \
         -t ${task.cpus} \
@@ -210,7 +208,7 @@ else
     echo "Running gene summary"
     run_midas.py \
         genes \
-        OUTPUT \
+        ${specimen} \
         -1 ${specimen}.R1.fastq.gz \
         -t ${task.cpus} \
         -d ${DB} \
@@ -222,7 +220,7 @@ echo "Running SNP summary"
 if [[ -s ${specimen}.R2.fastq.gz ]]; then
     run_midas.py \
         snps \
-        OUTPUT \
+        ${specimen} \
         -1 ${specimen}.R1.fastq.gz \
         -2 ${specimen}.R2.fastq.gz \
         -t ${task.cpus} \
@@ -231,7 +229,7 @@ if [[ -s ${specimen}.R2.fastq.gz ]]; then
 else
     run_midas.py \
         snps \
-        OUTPUT \
+        ${specimen} \
         -1 ${specimen}.R1.fastq.gz \
         -t ${task.cpus} \
         -d ${DB} \
@@ -241,22 +239,82 @@ fi
 echo "Gathering output files"
 
 # Species-level results
-mv OUTPUT/species/species_profile.txt ${specimen}.midas.species.txt
-mv OUTPUT/species/log.txt ${specimen}.midas.species.log
+echo "Tarring up species results"
+tar cvf ${specimen}.species.tar ${specimen}/species/*
+gzip ${specimen}.species.tar
 
 # Gene-level results
-mv OUTPUT/genes/log.txt ${specimen}.midas.genes.log
-mv OUTPUT/genes/summary.txt ${specimen}.midas.genes.summary.txt
-tar cvf ${specimen}.midas.genes.tar OUTPUT/genes/output/*
+echo "Tarring up gene results"
+tar cvf ${specimen}.genes.tar ${specimen}/genes/*
+gzip ${specimen}.genes.tar
 
 # SNP-level results
-mv OUTPUT/snps/log.txt ${specimen}.midas.snps.log
-mv OUTPUT/snps/summary.txt ${specimen}.midas.snps.summary.txt
-tar cvf ${specimen}.midas.snps.tar OUTPUT/snps/output/*
+echo "Tarring up SNP results"
+tar cvf ${specimen}.snps.tar ${specimen}/snps/*
+gzip ${specimen}.snps.tar
 
-# Compress output files
-gzip ${specimen}.midas.*log
-gzip ${specimen}.midas.*txt
+echo "Done"
+
+"""
+}
+
+process midas_merge_species {
+    container "quay.io/fhcrc-microbiome/midas:v1.3.2--6"
+    label "mem_veryhigh"
+    publishDir "${params.output_folder}"
+    
+    input:
+    file species_tar_list from species_ch.toSortedList()
+    file DB from file(params.db)
+
+    output:
+    file "SPECIES/*"
+
+"""
+#!/bin/bash
+
+set -e
+
+ls -lahtr
+
+# Keep track of the folders created while unpacking input files
+input_string=""
+
+echo "Unpacking all of the input files"
+for tarfile in ${species_tar_list}; do
+    echo "Making sure that \$tarfile was downloaded correctly"
+    [[ -s \$tarfile ]]
+
+    echo "Unpacking \$tarfile"
+    tar xzvf \$tarfile
+
+    # Add this folder to the input string
+    input_string="\$input_string,\$( echo \$tarfile | sed 's/.species.tar.gz//' )"
+
+    echo "Updated input string: \$input_string"
+
+done
+
+# Remove the leading comma from the input string
+input_string=\$( echo \$input_string | sed 's/^,//' )
+
+echo "Merging species results"
+
+merge_midas.py \
+    species \
+    SPECIES \
+    -i \$input_string \
+    -t list \
+    -d ${DB} \
+    --sample_depth ${params.merge_sample_depth}
+
+echo "Done merging data"
+
+ls -lahtr SPECIES
+
+echo "Compressing output files"
+
+find SPECIES -type f | xargs gzip
 
 echo "Done"
 
@@ -264,4 +322,130 @@ echo "Done"
 }
 
 
+process midas_merge_genes {
+    container "quay.io/fhcrc-microbiome/midas:v1.3.2--6"
+    label "mem_veryhigh"
+    publishDir "${params.output_folder}"
+    
+    input:
+    file genes_tar_list from gene_ch.toSortedList()
+    file DB from file(params.db)
+
+    output:
+    file "GENES/*"
+
+"""
+#!/bin/bash
+
+set -e
+
+ls -lahtr
+
+# Keep track of the folders created while unpacking input files
+input_string=""
+
+echo "Unpacking all of the input files"
+for tarfile in ${genes_tar_list}; do
+    echo "Making sure that \$tarfile was downloaded correctly"
+    [[ -s \$tarfile ]]
+
+    echo "Unpacking \$tarfile"
+    tar xzvf \$tarfile
+
+    # Add this folder to the input string
+    input_string="\$input_string,\$( echo \$tarfile | sed 's/.genes.tar.gz//' )"
+
+    echo "Updated input string: \$input_string"
+
+done
+
+# Remove the leading comma from the input string
+input_string=\$( echo \$input_string | sed 's/^,//' )
+
+echo "Merging gene results"
+
+merge_midas.py \
+    genes \
+    GENES \
+    -i \$input_string \
+    -t list \
+    -d ${DB} \
+    --sample_depth ${params.merge_sample_depth}
+
+echo "Done merging data"
+
+ls -lahtr GENES
+
+echo "Compressing output files"
+
+find GENES -type f | xargs gzip
+
+echo "Done"
+
+"""
+}
+
+process midas_merge_snps {
+    container "quay.io/fhcrc-microbiome/midas:v1.3.2--6"
+    label "mem_veryhigh"
+    publishDir "${params.output_folder}"
+    
+    input:
+    file snps_tar_list from snps_ch.toSortedList()
+    file DB from file(params.db)
+
+    output:
+    file "SNPS/*"
+
+"""
+#!/bin/bash
+
+set -e
+
+ls -lahtr
+
+# Keep track of the folders created while unpacking input files
+input_string=""
+
+echo "Unpacking all of the input files"
+for tarfile in ${snps_tar_list}; do
+    echo "Making sure that \$tarfile was downloaded correctly"
+    [[ -s \$tarfile ]]
+
+    echo "Unpacking \$tarfile"
+    tar xzvf \$tarfile
+
+    # Add this folder to the input string
+    input_string="\$input_string,\$( echo \$tarfile | sed 's/.snps.tar.gz//' )"
+
+    echo "Updated input string: \$input_string"
+
+done
+
+# Remove the leading comma from the input string
+input_string=\$( echo \$input_string | sed 's/^,//' )
+
+echo "Merging snps results"
+
+merge_midas.py \
+    snps \
+    SNPS \
+    -i \$input_string \
+    -t list \
+    -d ${DB} \
+    --sample_depth ${params.merge_sample_depth}
+
+echo "Done merging data"
+
+touch SNPS/DONE
+ls -lahtr SNPS
+
+echo "Compressing output files"
+
+find SNPS -type f | xargs gzip
+
+echo "Done"
+
+"""
+}
 
