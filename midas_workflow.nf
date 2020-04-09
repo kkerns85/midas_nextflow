@@ -437,6 +437,7 @@ merge_midas.py \
 
 echo "Done merging data"
 
+touch SNPS/DONE
 ls -lahtr SNPS
 
 echo "Compressing output files"
