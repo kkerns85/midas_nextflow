@@ -243,8 +243,8 @@ gzip ${specimen}.species.tar
 
 # Gene-level results
 echo "Tarring up gene results"
-tar cvf ${specimen}.gene.tar OUTPUT/gene/*
-gzip ${specimen}.gene.tar
+tar cvf ${specimen}.genes.tar OUTPUT/genes/*
+gzip ${specimen}.genes.tar
 
 # SNP-level results
 echo "Tarring up SNP results"
