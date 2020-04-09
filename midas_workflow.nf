@@ -176,7 +176,7 @@ if [[ -s ${specimen}.R2.fastq.gz ]]; then
     # Run the species abundance summary
     run_midas.py \
         species \
-        OUTPUT \
+        ${specimen} \
         -1 ${specimen}.R1.fastq.gz \
         -2 ${specimen}.R2.fastq.gz \
         -t ${task.cpus} \
@@ -185,7 +185,7 @@ else
     # Run the species abundance summary
     run_midas.py \
         species \
-        OUTPUT \
+        ${specimen} \
         -1 ${specimen}.R1.fastq.gz \
         -t ${task.cpus} \
         -d ${DB}
@@ -196,7 +196,7 @@ if [[ -s ${specimen}.R2.fastq.gz ]]; then
     echo "Running gene summary"
     run_midas.py \
         genes \
-        OUTPUT \
+        ${specimen} \
         -1 ${specimen}.R1.fastq.gz \
         -2 ${specimen}.R2.fastq.gz \
         -t ${task.cpus} \
@@ -206,7 +206,7 @@ else
     echo "Running gene summary"
     run_midas.py \
         genes \
-        OUTPUT \
+        ${specimen} \
         -1 ${specimen}.R1.fastq.gz \
         -t ${task.cpus} \
         -d ${DB} \
@@ -218,7 +218,7 @@ echo "Running SNP summary"
 if [[ -s ${specimen}.R2.fastq.gz ]]; then
     run_midas.py \
         snps \
-        OUTPUT \
+        ${specimen} \
         -1 ${specimen}.R1.fastq.gz \
         -2 ${specimen}.R2.fastq.gz \
         -t ${task.cpus} \
@@ -227,7 +227,7 @@ if [[ -s ${specimen}.R2.fastq.gz ]]; then
 else
     run_midas.py \
         snps \
-        OUTPUT \
+        ${specimen} \
         -1 ${specimen}.R1.fastq.gz \
         -t ${task.cpus} \
         -d ${DB} \
@@ -238,17 +238,17 @@ echo "Gathering output files"
 
 # Species-level results
 echo "Tarring up species results"
-tar cvf ${specimen}.species.tar OUTPUT/species/*
+tar cvf ${specimen}.species.tar ${specimen}/species/*
 gzip ${specimen}.species.tar
 
 # Gene-level results
 echo "Tarring up gene results"
-tar cvf ${specimen}.genes.tar OUTPUT/genes/*
+tar cvf ${specimen}.genes.tar ${specimen}/genes/*
 gzip ${specimen}.genes.tar
 
 # SNP-level results
 echo "Tarring up SNP results"
-tar cvf ${specimen}.snps.tar OUTPUT/snps/*
+tar cvf ${specimen}.snps.tar ${specimen}/snps/*
 gzip ${specimen}.snps.tar
 
 echo "Done"
