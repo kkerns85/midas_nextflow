@@ -1,7 +1,7 @@
 # midas_nextflow
 Running Midas using nextflow
 
-****Test****
+****Beta****
 
 This workflow is designed to help streamline bacterial metagenomic and metatranscriptomic data analysis using the Nextflow workflow manager. Raw reads (fastq or fastq.gz) are initailly passed through Kneaddata which initially trims raw reads via Trimmomatic (v. 0.33) and then aligns them via Bowtie2 (v. >= 2.2) and finally removes bacterial ribosomal RNA using the Silva rRNA database (v. 128). Trimmed, aligned, and filtered reads are then passed on to MIDAS in order to assign taxonomy using the Phy-Eco single-copy marker gene set which provides species taxonomic assignment, gene content, and strain level variation via single-nucleotide-polymorphism (SNP's) analysis for each metagenome.
 
