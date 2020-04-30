@@ -27,13 +27,13 @@ This minimal test_data set was developed using Saccharibacteria Nanosynbacter ly
 - Merged files for Species, Genes, and SNP analysis
 
 #Options
-    --single            Run single end reads
-    --no-knead          Skip kneaddata process
-    --profile           local or AWS batch
-    --output_folder     Folder to place analysis outputs (default ./midas)
-    --output_prefix     Text used as a prefix for output files (default: midas)
-    --species_cov       Coverage (depth) threshold for species inclusion (default: 3.0)
-    --merge_sample_depth  Corresponds to the --sample_depth parameter in the merge_midas.py command (default: 1.0)
+   - --single            Run single end reads
+   - --no-knead          Skip kneaddata process
+   - --profile           local or AWS batch
+   - --output_folder     Folder to place analysis outputs (default ./midas)
+   - --output_prefix     Text used as a prefix for output files (default: midas)
+   - --species_cov       Coverage (depth) threshold for species inclusion (default: 3.0)
+   - --merge_sample_depth  Corresponds to the --sample_depth parameter in the merge_midas.py command (default: 1.0)
 
 #Manifest
       The manifest is a CSV with a header indicating which samples correspond to which files.
