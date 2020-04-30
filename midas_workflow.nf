@@ -20,6 +20,13 @@ def helpMessage() {
       --species_cov         Coverage (depth) threshold for species inclusion (default: 3.0)
       --single              Input data is single-end (default: treat as paired-end)
       --merge_sample_depth  Corresponds to the --sample_depth parameter in the merge_midas.py command (default: 1.0)
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> pr/1
+>>>>>>> Stashed changes
     Manifest:
       The manifest is a CSV with a header indicating which samples correspond to which files.
       The file must contain a column `specimen`. This value can not be repeated.
@@ -155,7 +162,15 @@ process midas {
     container "quay.io/fhcrc-microbiome/midas:v1.3.2--6"
     label "mem_veryhigh"
     publishDir "${params.output_folder}/${specimen}"
+<<<<<<< Updated upstream
 
+=======
+<<<<<<< HEAD
+    
+=======
+
+>>>>>>> pr/1
+>>>>>>> Stashed changes
     input:
     tuple val(specimen), file("${specimen}.R*.fastq.gz") from trimmed_fastq_ch
     file DB from file(params.db_midas)
@@ -238,14 +253,130 @@ echo "Gathering output files"
 echo "Tarring up species results"
 tar cvf ${specimen}.species.tar ${specimen}/species/*
 gzip ${specimen}.species.tar
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> pr/1
+>>>>>>> Stashed changes
 # Gene-level results
 echo "Tarring up gene results"
 tar cvf ${specimen}.genes.tar ${specimen}/genes/*
 gzip ${specimen}.genes.tar
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> pr/1
+>>>>>>> Stashed changes
 # SNP-level results
 echo "Tarring up SNP results"
 tar cvf ${specimen}.snps.tar ${specimen}/snps/*
 gzip ${specimen}.snps.tar
+<<<<<<< Updated upstream
+echo "Done"
+=======
+<<<<<<< HEAD
+
+echo "Done"
+
+>>>>>>> Stashed changes
+"""
+}
+
+process midas_merge_species {
+    container "quay.io/fhcrc-microbiome/midas:v1.3.2--6"
+    label "mem_veryhigh"
+    publishDir "${params.output_folder}"
+<<<<<<< Updated upstream
+
+    input:
+    file species_tar_list from species_ch.toSortedList()
+    file DB from file(params.db_midas)
+=======
+    
+    input:
+    file species_tar_list from species_ch.toSortedList()
+    file DB from file(params.db)
+>>>>>>> Stashed changes
+
+    output:
+    file "SPECIES/*"
+
+"""
+#!/bin/bash
+<<<<<<< Updated upstream
+set -e
+ls -lahtr
+# Keep track of the folders created while unpacking input files
+input_string=""
+=======
+
+set -e
+
+ls -lahtr
+
+# Keep track of the folders created while unpacking input files
+input_string=""
+
+>>>>>>> Stashed changes
+echo "Unpacking all of the input files"
+for tarfile in ${species_tar_list}; do
+    echo "Making sure that \$tarfile was downloaded correctly"
+    [[ -s \$tarfile ]]
+<<<<<<< Updated upstream
+    echo "Unpacking \$tarfile"
+    tar xzvf \$tarfile
+    # Add this folder to the input string
+    input_string="\$input_string,\$( echo \$tarfile | sed 's/.species.tar.gz//' )"
+    echo "Updated input string: \$input_string"
+done
+# Remove the leading comma from the input string
+input_string=\$( echo \$input_string | sed 's/^,//' )
+echo "Merging species results"
+=======
+
+    echo "Unpacking \$tarfile"
+    tar xzvf \$tarfile
+
+    # Add this folder to the input string
+    input_string="\$input_string,\$( echo \$tarfile | sed 's/.species.tar.gz//' )"
+
+    echo "Updated input string: \$input_string"
+
+done
+
+# Remove the leading comma from the input string
+input_string=\$( echo \$input_string | sed 's/^,//' )
+
+echo "Merging species results"
+
+>>>>>>> Stashed changes
+merge_midas.py \
+    species \
+    SPECIES \
+    -i \$input_string \
+    -t list \
+    -d ${DB} \
+    --sample_depth ${params.merge_sample_depth}
+<<<<<<< Updated upstream
+echo "Done merging data"
+ls -lahtr SPECIES
+echo "Compressing output files"
+find SPECIES -type f | xargs gzip
+=======
+
+echo "Done merging data"
+
+ls -lahtr SPECIES
+
+echo "Compressing output files"
+
+find SPECIES -type f | xargs gzip
+=======
+>>>>>>> Stashed changes
 echo "Done"
 """
 }
@@ -254,6 +385,7 @@ process midas_merge_species {
     container "quay.io/fhcrc-microbiome/midas:v1.3.2--6"
     label "mem_veryhigh"
     publishDir "${params.output_folder}"
+>>>>>>> pr/1
 
     input:
     file species_tar_list from species_ch.toSortedList()
@@ -296,12 +428,19 @@ echo "Done"
 """
 }
 
-
 process midas_merge_genes {
     container "quay.io/fhcrc-microbiome/midas:v1.3.2--6"
     label "mem_veryhigh"
     publishDir "${params.output_folder}"
 
+<<<<<<< Updated upstream
+=======
+process midas_merge_genes {
+    container "quay.io/fhcrc-microbiome/midas:v1.3.2--6"
+    label "mem_veryhigh"
+    publishDir "${params.output_folder}"
+
+>>>>>>> Stashed changes
     input:
     file genes_tar_list from gene_ch.toSortedList()
     file DB from file(params.db_midas)
@@ -352,8 +491,142 @@ process midas_merge_snps {
     file snps_tar_list from snps_ch.toSortedList()
     file DB from file(params.db_midas)
 
+<<<<<<< Updated upstream
     output:
     file "SNPS/*"
+=======
+<<<<<<< HEAD
+process midas_merge_genes {
+    container "quay.io/fhcrc-microbiome/midas:v1.3.2--6"
+    label "mem_veryhigh"
+    publishDir "${params.output_folder}"
+    
+    input:
+    file genes_tar_list from gene_ch.toSortedList()
+    file DB from file(params.db)
+
+    output:
+    file "GENES/*"
+
+"""
+#!/bin/bash
+
+set -e
+
+ls -lahtr
+
+# Keep track of the folders created while unpacking input files
+input_string=""
+
+echo "Unpacking all of the input files"
+for tarfile in ${genes_tar_list}; do
+    echo "Making sure that \$tarfile was downloaded correctly"
+    [[ -s \$tarfile ]]
+
+    echo "Unpacking \$tarfile"
+    tar xzvf \$tarfile
+
+    # Add this folder to the input string
+    input_string="\$input_string,\$( echo \$tarfile | sed 's/.genes.tar.gz//' )"
+
+    echo "Updated input string: \$input_string"
+
+done
+
+# Remove the leading comma from the input string
+input_string=\$( echo \$input_string | sed 's/^,//' )
+
+echo "Merging gene results"
+
+merge_midas.py \
+    genes \
+    GENES \
+    -i \$input_string \
+    -t list \
+    -d ${DB} \
+    --sample_depth ${params.merge_sample_depth}
+
+echo "Done merging data"
+
+ls -lahtr GENES
+
+echo "Compressing output files"
+
+find GENES -type f | xargs gzip
+
+echo "Done"
+
+"""
+}
+
+process midas_merge_snps {
+    container "quay.io/fhcrc-microbiome/midas:v1.3.2--6"
+    label "mem_veryhigh"
+    publishDir "${params.output_folder}"
+    
+    input:
+    file snps_tar_list from snps_ch.toSortedList()
+    file DB from file(params.db)
+
+    output:
+    file "SNPS/*"
+
+"""
+#!/bin/bash
+
+set -e
+
+ls -lahtr
+
+# Keep track of the folders created while unpacking input files
+input_string=""
+
+echo "Unpacking all of the input files"
+for tarfile in ${snps_tar_list}; do
+    echo "Making sure that \$tarfile was downloaded correctly"
+    [[ -s \$tarfile ]]
+
+    echo "Unpacking \$tarfile"
+    tar xzvf \$tarfile
+
+    # Add this folder to the input string
+    input_string="\$input_string,\$( echo \$tarfile | sed 's/.snps.tar.gz//' )"
+
+    echo "Updated input string: \$input_string"
+
+done
+
+# Remove the leading comma from the input string
+input_string=\$( echo \$input_string | sed 's/^,//' )
+
+echo "Merging snps results"
+
+merge_midas.py \
+    snps \
+    SNPS \
+    -i \$input_string \
+    -t list \
+    -d ${DB} \
+    --sample_depth ${params.merge_sample_depth}
+
+echo "Done merging data"
+
+touch SNPS/DONE
+ls -lahtr SNPS
+
+echo "Compressing output files"
+
+find SNPS -type f | xargs gzip
+
+echo "Done"
+
+"""
+}
+=======
+    output:
+    file "SNPS/*"
+>>>>>>> pr/1
+>>>>>>> Stashed changes
 
 """
 #!/bin/bash
