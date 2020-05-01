@@ -19,6 +19,8 @@ def helpMessage() {
       --species_cov         Coverage (depth) threshold for species inclusion (default: 3.0)
       --single              Input data is single-end (default: treat as paired-end)
       --merge_sample_depth  Corresponds to the --sample_depth parameter in the merge_midas.py command (default: 1.0)
+      --no_knead            Skip Kneaddata (default: false)
+      
     Manifest:
       The manifest is a CSV with a header indicating which samples correspond to which files.
       The file must contain a column `specimen`. This value can not be repeated.
@@ -78,11 +80,31 @@ params.output_prefix =  'midas'
 params.species_cov = 3.0
 params.merge_sample_depth = 1.0
 params.single = false
+params.no_knead = false
 
 
 // Parse the manifest CSV
 // Along the way, make sure that the appropriate columns were provided
-if (params.single){
+if (params.single && params.no_knead){
+    trimmed_fastq_ch = Channel.from(
+        file(
+            params.manifest
+        ).splitCsv(
+            header: true,
+            sep: ","
+        )
+    ).filter {
+        r -> (r.specimen != null)
+    }.ifEmpty {
+        exit 1, "Cannot find values in the 'specimen' column: ${params.manifest}"
+    }.filter {
+        r -> (r.R1 != null)
+    }.ifEmpty {
+        exit 1, "Cannot find values in the 'R1' column: ${params.manifest}"
+    }.map {
+        r -> [r["specimen"], [file(r["R1"])]]
+    }
+} else if (params.single) {
     fastq_ch = Channel.from(
         file(
             params.manifest
@@ -100,6 +122,29 @@ if (params.single){
         exit 1, "Cannot find values in the 'R1' column: ${params.manifest}"
     }.map {
         r -> [r["specimen"], [file(r["R1"])]]
+    }
+} else if (params.no_knead){
+    trimmed_fastq_ch = Channel.from(
+        file(
+            params.manifest
+        ).splitCsv(
+            header: true,
+            sep: ","
+        )
+    ).filter {
+        r -> (r.specimen != null)
+    }.ifEmpty {
+        exit 1, "Cannot find values in the 'specimen' column: ${params.manifest}"
+    }.filter {
+        r -> (r.R1 != null)
+    }.ifEmpty {
+        exit 1, "Cannot find values in the 'R1' column: ${params.manifest}"
+    }.filter {
+        r -> (r.R2 != null)
+    }.ifEmpty {
+        exit 1, "Cannot find values in the 'R2' column: ${params.manifest}"
+    }.map {
+        r -> [r["specimen"], [file(r["R1"]), file(r["R2"])]]
     }
 } else {
     fastq_ch = Channel.from(
