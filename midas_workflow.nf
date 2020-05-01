@@ -85,7 +85,26 @@ params.no_knead = false
 
 // Parse the manifest CSV
 // Along the way, make sure that the appropriate columns were provided
-if (params.single){
+if (params.single || params.no_knead){
+    trimmed_fastq_ch = Channel.from(
+        file(
+            params.manifest
+        ).splitCsv(
+            header: true,
+            sep: ","
+        )
+    ).filter {
+        r -> (r.specimen != null)
+    }.ifEmpty {
+        exit 1, "Cannot find values in the 'specimen' column: ${params.manifest}"
+    }.filter {
+        r -> (r.R1 != null)
+    }.ifEmpty {
+        exit 1, "Cannot find values in the 'R1' column: ${params.manifest}"
+    }.map {
+        r -> [r["specimen"], [file(r["R1"])]]
+    }
+} else if (params.single) {
     fastq_ch = Channel.from(
         file(
             params.manifest
@@ -104,8 +123,8 @@ if (params.single){
     }.map {
         r -> [r["specimen"], [file(r["R1"])]]
     }
-} else {
-    fastq_ch = Channel.from(
+} else if (params.no_knead){
+    trimmed_fastq_ch = Channel.from(
         file(
             params.manifest
         ).splitCsv(
@@ -127,32 +146,8 @@ if (params.single){
     }.map {
         r -> [r["specimen"], [file(r["R1"]), file(r["R2"])]]
     }
-}
-
-
-//Allow to Skip Kneaddata
-//Make sure manifest input is added to the right channel to run MIDAS
-if (params.no_knead || params.single){
-    trimmed_fastq_ch = Channel.from(
-        file(
-            params.manifest
-        ).splitCsv(
-            header: true,
-            sep: ","
-        )
-    ).filter {
-        r -> (r.specimen != null)
-    }.ifEmpty {
-        exit 1, "Cannot find values in the 'specimen' column: ${params.manifest}"
-    }.filter {
-        r -> (r.R1 != null)
-    }.ifEmpty {
-        exit 1, "Cannot find values in the 'R1' column: ${params.manifest}"
-    }.map {
-        r -> [r["specimen"], [file(r["R1"])]]
-    }
 } else {
-    trimmed_fastq_ch = Channel.from(
+    fastq_ch = Channel.from(
         file(
             params.manifest
         ).splitCsv(
