@@ -23,3 +23,9 @@ jobs:
       - name:  Process paired-ended data
         run: |
           NXF_VER=20.01.0 nextflow run midas_workflow.nf -c nextflow.config -profile testing --manifest test_data/manifest.paired.csv --db db/ --output_folder test_output/paired/ --species_cov 0.01 --merge_sample_depth 0.01 -with-docker ubuntu:18.04 -w work/ -process.executor local
+      - name:  Process single-ended data no Kneaddata
+        run: |
+          NXF_VER=20.01.0 nextflow run midas_workflow.nf -c nextflow.config -profile testing --manifest test_data/manifest.single.csv --db db/ --output_folder test_output/single/ --no_knead --species_cov 0.01 --merge_sample_depth 0.01 --single -with-docker ubuntu:18.04 -w work/ -process.executor local
+      - name:  Process paired-ended data no Kneaddata
+        run: |
+          NXF_VER=20.01.0 nextflow run midas_workflow.nf -c nextflow.config -profile testing --manifest test_data/manifest.paired.csv --db db/ --output_folder test_output/paired/ --no_knead --species_cov 0.01 --merge_sample_depth 0.01 -with-docker ubuntu:18.04 -w work/ -process.executor local
