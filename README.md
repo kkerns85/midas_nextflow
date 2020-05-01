@@ -28,7 +28,7 @@ This minimal test_data set was developed using Saccharibacteria Nanosynbacter ly
 
 #Options
    - --single            Run single end reads
-   - --no-knead          Skip kneaddata process
+   - --no_knead          Skip kneaddata process (default: false)
    - --profile           local or AWS batch
    - --output_folder     Folder to place analysis outputs (default ./midas)
    - --output_prefix     Text used as a prefix for output files (default: midas)
