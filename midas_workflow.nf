@@ -85,7 +85,7 @@ params.no_knead = false
 
 // Parse the manifest CSV
 // Along the way, make sure that the appropriate columns were provided
-if (params.single || params.no_knead){
+if (params.single && params.no_knead){
     trimmed_fastq_ch = Channel.from(
         file(
             params.manifest
